@@ -28,7 +28,6 @@ public class GlobalExceptionRestController {
     public BaseResponse exceptionHandler(RuntimeException e, HttpServletResponse response) {
         BaseResponse resp = null;
         if (e instanceof BaseBusinessModuleException) {
-            // logger.error("BusinessException:",e);
             resp = new BaseResponse(((BaseBusinessModuleException) e).getError());
         } else {
             resp = new BaseResponse();

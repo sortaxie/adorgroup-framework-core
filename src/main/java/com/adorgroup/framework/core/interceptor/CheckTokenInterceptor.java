@@ -50,6 +50,7 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
 
     }
 
+    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         TokenUtil.setToken(null);
     }
