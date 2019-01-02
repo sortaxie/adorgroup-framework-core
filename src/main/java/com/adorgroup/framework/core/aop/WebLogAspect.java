@@ -16,7 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Enumeration;
-
 /**
  * @author benju.xie
  * @version 0.0.1
@@ -27,7 +26,7 @@ import java.util.Enumeration;
 public class WebLogAspect {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     public static ObjectMapper objectMapper = new ObjectMapper();
-    private  final String logPoint="@annotation(org.springframework.web.bind.annotation.RequestMapping)";
+    private  final String logPoint="@annotation(org.springframework.web.bind.annotation.RequestMapping) || @annotation(org.springframework.web.bind.annotation.GetMapping) || @annotation(org.springframework.web.bind.annotation.PostMapping)";
     @Pointcut(logPoint)
     public void webLog() {
 
