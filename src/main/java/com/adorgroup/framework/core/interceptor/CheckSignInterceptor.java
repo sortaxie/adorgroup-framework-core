@@ -4,6 +4,7 @@ import com.adorgroup.framework.core.security.annotation.IgnoreSignChecking;
 import com.adorgroup.framework.common.exception.error.BaseBusinessModuleException;
 import com.adorgroup.framework.common.exception.error.DefaultError;
 import com.adorgroup.framework.common.utils.SignatureGenerator;
+import com.adorgroup.framework.core.security.annotation.SigntChecking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,10 +29,11 @@ public class CheckSignInterceptor extends HandlerInterceptorAdapter {
 
     @Value("${framework.secrety.secretKey}")
     private String secretKey;
+    @Value("${framework.secrety.signt.overtime:120000}")
+    private int signtOvertime;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
         final Method method = handlerMethod.getMethod();
         if(method.getAnnotationsByType(IgnoreSignChecking.class).length>0){
@@ -43,6 +45,24 @@ public class CheckSignInterceptor extends HandlerInterceptorAdapter {
         if (StringUtils.isEmpty(sign)) {
             throw new BaseBusinessModuleException(DefaultError.SIGN_NOT_FOUND);
         }
+
+        //如果包含signt 参数需要校验是否过期
+        String signt = request.getParameter("signt");
+        if(method.getAnnotationsByType(SigntChecking.class).length>0){
+            if(StringUtils.isEmpty(signt)){
+                throw new BaseBusinessModuleException(DefaultError.SIGNT_OVERTIME_ERROR);
+            }
+            SigntChecking signtChecking = method.getAnnotationsByType(SigntChecking.class)[0];
+            signtOvertime = signtChecking.overtime();
+        }
+
+
+        if(!StringUtils.isEmpty(signt)){
+            if(System.currentTimeMillis()-Long.parseLong(signt)>signtOvertime||System.currentTimeMillis()-Long.parseLong(signt)<0){
+                throw new BaseBusinessModuleException(DefaultError.SIGNT_OVERTIME_ERROR);
+            }
+        }
+
         String requestUri = request.getRequestURI().substring(1);// 去掉第一个斜杠(/)
         // 获取参数列表
         Map<String, String> reqParams = new HashMap<>();
