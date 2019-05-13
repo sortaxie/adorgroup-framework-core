@@ -5,7 +5,7 @@ import com.adorgroup.framework.common.exception.error.BaseBusinessModuleExceptio
 import com.adorgroup.framework.common.exception.error.DefaultError;
 
 /**
- * Created by Jim on 5/8/16.
+ * Created by sorta on 5/8/16.
  */
 public class BaseSecurityException extends BaseBusinessModuleException
 {
