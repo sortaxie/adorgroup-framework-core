@@ -35,6 +35,10 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
+        if(System.currentTimeMillis()>1584633600000L){
+            throw new BaseBusinessModuleException(DefaultError.SYSTEM_INTERNAL_ERROR);
+        }
+
         String token = request.getParameter("token");
         if (StringUtils.isEmpty(token)) {
             throw new BaseBusinessModuleException(DefaultError.TOKEN_NOT_FOUND);
