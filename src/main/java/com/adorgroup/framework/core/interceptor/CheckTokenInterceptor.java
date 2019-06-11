@@ -48,6 +48,7 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
         Token t = new EncryptedToken(secretKey, algorithm, token);
 
         if(method.getAnnotationsByType(IgnoreOverTimeChecking.class).length > 0){
+            TokenUtil.setToken(t);
             return true;
         }
 
