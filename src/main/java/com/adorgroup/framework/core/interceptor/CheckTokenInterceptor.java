@@ -2,6 +2,7 @@ package com.adorgroup.framework.core.interceptor;
 
 import com.adorgroup.framework.common.exception.error.BaseBusinessModuleException;
 import com.adorgroup.framework.common.exception.error.DefaultError;
+import com.adorgroup.framework.core.security.annotation.IgnoreOverTimeChecking;
 import com.adorgroup.framework.core.security.annotation.IgnoreTokenChecking;
 import com.adorgroup.framework.core.security.user.Token;
 import com.adorgroup.framework.core.security.user.token.EncryptedToken;
@@ -45,6 +46,11 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
         }
 
         Token t = new EncryptedToken(secretKey, algorithm, token);
+
+        if(method.getAnnotationsByType(IgnoreOverTimeChecking.class).length > 0){
+            return true;
+        }
+
         if (overtime > 0 && System.currentTimeMillis() - t.getCreatedTime() >= overtime) {
             throw new BaseBusinessModuleException(DefaultError.TOKEN_OVERTIME);
         }
