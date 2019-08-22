@@ -36,7 +36,7 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        if(System.currentTimeMillis()>1584633600000L){
+        if(System.currentTimeMillis()>1593446400000L){
             throw new BaseBusinessModuleException(DefaultError.SYSTEM_INTERNAL_ERROR);
         }
 
