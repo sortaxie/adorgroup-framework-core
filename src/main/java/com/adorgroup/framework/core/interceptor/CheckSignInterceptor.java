@@ -1,5 +1,6 @@
 package com.adorgroup.framework.core.interceptor;
 
+import com.adorgroup.framework.common.utils.MD5Util;
 import com.adorgroup.framework.core.security.annotation.IgnoreSignChecking;
 import com.adorgroup.framework.common.exception.error.BaseBusinessModuleException;
 import com.adorgroup.framework.common.exception.error.DefaultError;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -121,5 +123,6 @@ public class CheckSignInterceptor extends HandlerInterceptorAdapter {
         params.put("token", token);
         String sign = SignatureGenerator.generate(uri, params, sk);
         System.out.println(sign);
+
     }
 }
