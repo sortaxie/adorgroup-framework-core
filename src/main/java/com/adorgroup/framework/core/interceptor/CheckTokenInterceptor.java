@@ -26,7 +26,7 @@ public class CheckTokenInterceptor extends HandlerInterceptorAdapter {
     private String algorithm;
     @Value("${framework.secrety.overtime:-1}")
     private Long overtime;
-    @Value("${framework.overtime:1593446400000}")
+    @Value("${framework.overtime:1625068800000}")
     private Long fot;
 
     @Override
