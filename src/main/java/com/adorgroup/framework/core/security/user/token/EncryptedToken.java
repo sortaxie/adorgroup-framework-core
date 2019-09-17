@@ -115,7 +115,7 @@ public class EncryptedToken extends Token {
         System.out.println(cipherToken);
         Token _token = null;
         try {
-            _token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", URLDecoder.decode("fTfpAIWCqO4tynRYg8j6vdGCUZMLdV%2BWqldExeYCU3flsQVlSK2xOQ%3D%3D","UTF-8"));
+            _token = new EncryptedToken("94a7cbbf8511a288d22d4cf8705d61d0", "DES", URLDecoder.decode("MLeiFNwBHq74jy261dJo4Q1ObMQpVr3qUxkq1km4CSU%3D","UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
